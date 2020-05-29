@@ -1,0 +1,276 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+h1 {
+  color: #543456;
+}
+.flex {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+/*  */
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 100%;
+  /* max-height: 100vh; */
+  line-height: 1.25;
+  background: #ebebe8;
+}
+
+/* header */
+.side_logo {
+  width: 100px;
+}
+
+a {
+  text-decoration: none;
+  color: teal;
+  outline: 0;
+}
+
+.background {
+  height: 100vh;
+  
+}
+/* 
+body {
+  
+} */
+
+h1 {
+  font-size: 2.5rem;
+}
+
+.heading {
+  font-weight: bold;
+  font-size: 54px;
+  color: #4b2f07cf;
+}
+.article_box {
+  max-width: 1000px;
+  border: 2px solid grey;
+  border-radius: 5px;
+  box-shadow:  -3px -3px 7px #ffffffb2,
+  3px 3px 5px rgba(94, 104, 121,0.3);
+  background: #e33838;
+  margin: 50px 80px;
+  padding: 30px;
+}
+.main_page {
+  height: 100%;
+  margin-bottom: 10px;
+  
+}
+button, .commentBtn {
+  color: #4cac51;
+  border: 2px solid #acac51;
+  font-weight: bold;
+}
+.tags {
+  display: flex;
+  justify-content: flex-start;
+  text-align: left;
+}
+.tags_single {
+  border: 2px solid gray;
+  background: darkgray;
+  color: black;
+  padding: 5px;
+  margin-right: 5px;
+}
+h3 {
+  color: #004324;
+  width: auto;
+}
+.title {
+  text-align: left;
+  color: #004324;
+  width: auto;
+}
+
+h2, p {
+  text-align: justify;
+  font-family: 'Poppins', sans-serif;
+  color: #4b610d;
+}
+.comments {
+  display: block;
+  border: 5px double #842e2e;
+  background: #a0c9438f;
+  width: 100%;
+  padding: 10px 0;
+  border-radius:10px;
+}
+.comment {
+  padding: 10px;
+  font-size: .75rem;
+  color: #0f34bc;
+  font-weight: bold;
+  
+}
+
+.comment_author {
+  font-size: .55rem;
+  color: #94167d;
+  font-style: italic;
+  text-align: left;
+  margin: 0;
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+.comment_box {
+  width: 30%;
+  border: 4px double #4b610d;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.comment_options {
+  margin-left: 12px;
+  text-align: left;
+}
+
+.fas {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.soft-ui {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: #f1f3f6;
+  box-shadow: -3px -3px 7px #ffffffb2,
+  3px 3px 5px rgba(94, 104, 121,0.3);
+  margin-left: 20px;
+   
+}
+
+.soft-ui:active, .soft-ui.active{
+  box-shadow: -3px -3px 7px #ffffffb2 inset,
+  3px 3px 5px rgba(94,104,121,0.3) inset;
+  
+}
+.section {
+  margin-bottom: 20px;
+}
+.soft-ui.rounded-square {
+  /* width: 120px; */
+  height: 20px;
+  border-radius: 5px;
+  margin: 10px;
+}
+.soft-ui.like {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.update_btn {
+  text-decoration: none;
+  color: teal;
+  outline: 0;
+  font-weight: bold;
+  width: 90px;
+}
+
+.logout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logout button {
+  /* margin: 10px;
+  padding: 10px; */
+  border: 0;
+  background: transparent;
+}
+.fa-star {
+  color: goldenrod; 
+}
+.logout_btn {
+	box-shadow: 0px -5px 4px -2px #15d98b;
+	background-color:transparent;
+	border-radius:42px;
+	border:2px solid #139287;
+	display:inline-block;
+	cursor:pointer;
+	color:#1e4949;
+	font-family:Arial;
+	font-size:17px;
+	padding:4px 10px;
+	text-decoration:none;
+  text-shadow:0px 0px 0px #194213;
+  width: 100px;
+  height: 20px;
+}
+.logout_btn:hover {
+  background-color:#70c257b2; 
+}
+.logout_btn:active {
+	/* position:relative; */
+	/* top:1px; */
+}
+.create_btn {
+  text-decoration: none;
+color: teal;
+outline: 0;
+font-weight: bold;
+}
+.email {
+  text-align: left;
+  margin: 0;
+  color:#1f3f15e8; 
+}
+
+.logBtn {
+  /* display: flex; */
+  justify-content: space-evenly;
+  align-items: center; 
+  padding: 20px;
+  text-decoration: none;
+  color: teal;
+  outline: 0;
+}
+.create_form {
+  border: 2px solid grey;
+  margin-top: 25px;
+  background: rgb(210, 248, 227);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.inner_create {
+  text-align: left;
+  width: 50%;
+  background: transparent;
+}
+
+.input_fields {
+  width: 100%;
+}
+
+.btn_size {
+  padding: 10px;
+  width: 120px;
+  height: 35px !important ;
+}
+textarea {
+  padding: 0 8px;
+}

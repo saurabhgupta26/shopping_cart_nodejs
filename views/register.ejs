@@ -1,0 +1,33 @@
+<%- include('partials/header'); %>
+<header>
+  <div class="header_background flex">
+    <div class="logo flex"></div>
+  </div>
+</header>
+<main class="article_box">
+  <form action="/users/register" method="POST">
+    <h2 class="Sign Up">Register</h2>
+
+    <input type="text" placeholder="Full Name" name="name" />
+
+    <input type="email" placeholder="Email" name="email" />
+
+    <input type="password" name="password" id="" placeholder="Password" />
+<span class="flex">
+    <input type="checkbox" name="admin" id="" value="Admin" />
+    <p>Admin</p>
+</span>
+    <input
+      class="soft-ui rounded-square update_btn"
+      type="submit"
+      value="Register"
+    />
+
+    <a href="/articles/login">
+      <button class="soft-ui rounded-square update_btn">Login</button></a
+    >
+  </form>
+
+  <a href="/users/login">Login by Email</a>
+</main>
+<%- include('partials/footer'); %>
