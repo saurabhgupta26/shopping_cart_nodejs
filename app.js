@@ -17,6 +17,7 @@ require("./modules/passport");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var adminRouter = require('./routes/admin');
 
 
 //connect to db
@@ -45,8 +46,32 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// creating session to make cookies
+
+//SESSION MAKER
+
+app.use(
+	session({
+		secret: 'saurabh@altcampus', //secret word to access the hash as an administrator.
+		resave: false, //to save your session when you revisit, will extend your session from that point of revisit till the session expires or till you revist and extend the session validity.
+		saveUninitialized: false,
+		store: new MongoStore({ mongooseConnection: mongoose.connection })
+	})
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(auth.userName);
+
+
+
+
+// ROUTING MIDDLEWARES
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

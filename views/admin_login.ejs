@@ -1,0 +1,41 @@
+<%- include('partials/header'); %>
+<header>
+  <div class="header_background flex">
+    <div class="logo flex"></div>
+  </div>
+</header>
+<main class="article_box">
+  <div class="background">
+    <div class="main_page">
+      <h1 class="heading">
+        Login in
+      </h1>
+      <form action="/admin/login" method="POST">
+        <input type="email" placeholder="Email" name="email" />
+        <input type="password" name="password" id="" placeholder="Password" />
+        <aside class="section soft">
+          <input
+            class="soft-ui rounded-square logBtn"
+            type="submit"
+            value="LOGIN"
+          />
+        </aside>
+      </form>
+      <div class="flex">
+        <a class="soft-ui rounded-square logBtn" href="/admin/register"
+          >Register</a
+        >
+        <a class="soft-ui rounded-square logBtn" href="/auth/github/"
+          ><i class="fab fa-github"></i> Login with Github</a
+        >
+        <a class="soft-ui rounded-square logBtn" href="/auth/facebook/"
+          ><i class="fab fa-facebook"></i> Login with Facebook</a
+        >
+        <a class="soft-ui rounded-square logBtn" href="/auth/google/"
+          ><i class="fab fa-google"></i> Login with Google</a
+        >
+      </div>
+    </div>
+  </div>
+</main>
+<%- include('partials/footer'); %>
