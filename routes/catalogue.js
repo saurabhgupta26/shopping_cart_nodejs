@@ -9,7 +9,7 @@ var smtpTransport = require('nodemailer-smtp-transport');
 
 router.use(auth.checkAdminLogged);
 
-router.get('/', async function(req, res, next) {
+router.get('/:adminId/list', async function(req, res, next) {
     if(!req.adminId.isVerified){
         console.log("user not verified");
     //    return res.send("please verify first")

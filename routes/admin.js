@@ -70,16 +70,17 @@ try {
 // VERIFICATION OF ID
 router.post('/:adminId/verify', async(req,res) => {
 	try{
-	  var admin = await Admin.findOne({email: req.params.adminId})
+		// console.log(req.params.adminId, "adminID");
+	  var admin = await Admin.findById(req.params.adminId);
+	//   console.log(admin, "REached third");
 	  if (admin.verification === req.body.verification) {
-		var updateAdmin = await Admin.updateOne(
-		  { email: req.params.email },
-		  { isVerified: true },
-		  { new: true }
-		);
-		res.redirect("/catalogue")
+		//   console.log("reached here");
+		var updateAdmin = await Admin.findByIdAndUpdate(req.params.adminId, { isVerified: true }, { new: true });
+		console.log(updateAdmin, "reached second");
+		res.redirect(`/catalogue/${admin.id}/list`)
 	  } 
-	  if(user.verification === req.body.verification){
+	  if(!admin.verification === req.body.verification){
+		  console.log(req.body.verification, "BODY verify");
 		res.send("not verified")
 	  }
 	}catch(err){
@@ -115,7 +116,7 @@ router.post('/login', async (req, res, next) => {
 			//creating a session on the server side
 			req.session.adminId = admin.id; //this line will create a session on the server side. 5 different users, 5 different sessions, grab the id, make a cookie and send it to the client side.
 			req.session.username = admin.name;
-			res.redirect(`/admin/${admin.id}/adminProfile`, {admin});
+			res.redirect(`/catalogue/${admin.id}/list`, {admin});
 	} catch (error) {
 		next(error);
 		
@@ -159,6 +160,13 @@ router.post('/:adminId/editAdmin', upload.single("image"), async function (req, 
 		next(error);
 	}
 })
+
+router.get('/logout', (req, res) => {
+	delete req.session.adminId; //DELETE THE specific session userId
+	req.session.destroy();
+	res.clearCookie('connect.sid');
+	res.redirect('/admin/login');
+});
 
 
 
