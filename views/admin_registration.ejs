@@ -6,17 +6,19 @@
 </header>
 <main class="article_box">
   <form action="/admin/register" method="POST">
+    
     <h2 class="Sign Up">Register</h2>
 
     <input type="text" placeholder="Full Name" name="name" />
 
     <input type="email" placeholder="Email" name="email" />
+    <input type="text" placeholder="Username" name="username" />
 
     <input type="password" name="password" id="" placeholder="Password" />
-    <span class="flex">
-      <input type="checkbox" name="admin" id="" />
-      <p>Admin</p>
-    </span>
+    <h3>Upload an Image</h3>
+    <input type="file" name="image" id="" value="Upload">
+
+
     <input
       class="soft-ui rounded-square update_btn"
       type="submit"

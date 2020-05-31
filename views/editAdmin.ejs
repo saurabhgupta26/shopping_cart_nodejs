@@ -1,0 +1,29 @@
+<%- include('partials/header'); %>
+<header>
+  <div class="header_background flex">
+    <div class="logo flex"></div>
+  </div>
+</header>
+<main class="article_box">
+  <div class="profile_section flex">
+    <h1 class="title"><%= admin.name %></h1>
+    <p> <%= admin.username %> </p>
+
+   <form action="/admin/<%=admin.id %>/editAdmin" method="POST" enctype="multipart/form-data">
+    
+    <h2 class="Sign Up">Edit</h2>
+
+    <input type="text" placeholder="Full Name" name="name" value="<%= admin.name %> "/>
+
+    <input type="email" placeholder="Email" name="email" value="<%= admin.email %> "/>
+    <input type="text" placeholder="Username" name="username" value="<%= admin.username %> " />
+
+    <h3>Upload an Image</h3>
+    <input type="file" name="image">
+
+    <input class="soft-ui rounded-square update_btn" type="submit" value="Update" />
+  </form>
+
+</main>
+
+<%- include('partials/footer'); %>

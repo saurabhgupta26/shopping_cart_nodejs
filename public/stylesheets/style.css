@@ -274,3 +274,16 @@ font-weight: bold;
 textarea {
   padding: 0 8px;
 }
+
+.profile_section {
+  border: 2px solid teal;
+  background: #d6d6a5;
+  max-width: 50%;
+  
+}
+.profile_image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #e33838;
+}

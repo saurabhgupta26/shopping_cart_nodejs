@@ -23,20 +23,22 @@ var adminSchema = new Schema ({
         type: Boolean,
         default: true
     },
+    isVerified : {
+        type: Boolean,
+        default: false
+    },
+    verification : String,
+    isBlocked : {
+        type: Boolean,
+        default : false
+    },
+    image : String,
     providers : [String]
 }, { timestamps : true
 });
 
 adminSchema.pre('save', function(next) {
-    //console.log("inside pre save function")
     if(this.password && this.isModified("password")) {
-       // console.log("inside if pre save")
-        // bcrypt.hash(this.password, 10, (err, hashed) => {
-        //     console.log(hashed,"hashedpassword")
-        //     if(err) return next(err);
-        //     this.password = hashed;
-        //     return next();
-        // });
          this.password = bcrypt.hashSync(this.password, 10);
         }
         next();
