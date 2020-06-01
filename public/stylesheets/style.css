@@ -290,8 +290,9 @@ textarea {
 body {
   /* margin: 0; */
   font-family: 'Roboto';
-  background-color:#229F8E;
-  color:#fff;
+  background-color:#EEF0F0;
+  color:#121;
+  height: 100vh;
 }
 
 .menu {
