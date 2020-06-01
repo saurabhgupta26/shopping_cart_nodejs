@@ -69,8 +69,8 @@ h1 {
   box-shadow:  -3px -3px 7px #ffffffb2,
   3px 3px 5px rgba(94, 104, 121,0.3);
   background: #e33838;
-  margin: 50px 80px;
-  padding: 30px;
+  /* margin: 50px 80px; */
+  padding: 10px;
 }
 .main_page {
   height: 100%;
@@ -223,10 +223,6 @@ h2, p {
 .logout_btn:hover {
   background-color:#70c257b2; 
 }
-.logout_btn:active {
-	/* position:relative; */
-	/* top:1px; */
-}
 .create_btn {
   text-decoration: none;
 color: teal;
@@ -275,15 +271,110 @@ textarea {
   padding: 0 8px;
 }
 
+.slider_head {
+  background: #232F3E;
+  color: rgb(224, 217, 217);
+}
+
 .profile_section {
   border: 2px solid teal;
-  background: #d6d6a5;
-  max-width: 50%;
-  
+  background: #2697e2c5;  
 }
 .profile_image {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   border: 2px solid #e33838;
+}
+
+body {
+  /* margin: 0; */
+  font-family: 'Roboto';
+  background-color:#229F8E;
+  color:#fff;
+}
+
+.menu {
+  font-weight: 100;
+  background: #d61e1eb0;
+  width: 150px;
+  height: 93%;
+  padding-left: 50px;
+  position: fixed;
+  z-index: 100;
+  -webkit-box-shadow: -3px 0px 5px 0px rgba(0,0,0,0.2);
+  box-shadow: -3px 0px 5px 0px rgba(0,0,0,0.2);
+  right: -130px;
+  transition: all .3s;
+  -webkit-transition: all .3s;
+  color: rgb(0, 0, 0);
+  font-weight: 400;
+  
+}
+
+.menu:hover, .menu:focus {
+  transform: translate3d(-130px, 0, 0);
+  animation-timing-function: 1s ease-in
+}
+
+.menu .title {
+  top: 50%;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  transform: rotate(270deg);
+  left: 10px;
+  font-weight: 800;
+  font-size: 15px
+}
+
+.menu .nav {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-weight: 100
+}
+
+.menu .nav li {
+  padding-bottom: 30px;
+  list-style-type: none;
+  font-weight: bold;
+}
+
+.menu .nav li a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: all .3s;
+  -webkit-transition: all .3s
+}
+
+.menu .nav li a:hover { color: #aaa }
+
+.intro {
+  position: absolute;
+  top: 30%;
+  width: 40%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  font-size: 45px;
+  text-align: center;
+  font-family: 'Muli-ExtraLightItalic'
+}
+
+.product_info {
+  width: 200px;
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+.product_image {
+  width: 100px;
+  height: 100px;
+  padding: 5px;
 }

@@ -44,9 +44,9 @@ try {
 	  let mailOptions = {
 		from: process.env.GMAIL_ID,
 		to: req.body.email,
-		subject: "This is a test mail.",
+		subject: "Email verification code for the Shopping Cart :- Created By Saurabh Gupta",
 		test: "First mail via nodemailer",
-		html: `<h1>From nodemailer</h1> ${verification}`,
+		html: `<h1>Dear User,<br>Your One Time Security Code is:</h1> ${verification}. <br> Code is valid for 30 minutes. <br> Please do not reply to this email. `,
 	  };
 	
 	  req.body.verification = verification;
@@ -116,7 +116,7 @@ router.post('/login', async (req, res, next) => {
 			//creating a session on the server side
 			req.session.adminId = admin.id; //this line will create a session on the server side. 5 different users, 5 different sessions, grab the id, make a cookie and send it to the client side.
 			req.session.username = admin.name;
-			res.redirect(`/catalogue/${admin.id}/list`, {admin});
+			res.redirect(`/catalogue/${admin.id}/list`);
 	} catch (error) {
 		next(error);
 		

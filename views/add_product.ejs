@@ -1,0 +1,42 @@
+<%- include('partials/header'); %> <%- include('partials/slider'); %>
+<header>
+  <div class="header_background flex">
+    <div class="logo flex"></div>
+  </div>
+</header>
+<main class="article_box">
+  <form
+    action="/catalogue/<%=admin.id %>/add_product"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <h1 class="Sign Up">Add Item</h1>
+
+    <h3>Upload an Image</h3>
+    <input type="file" name="image" />
+
+    <input type="text" placeholder="Name of the Product" name="name" />
+
+    <input type="number" placeholder="Price" name="price" />
+
+    <label for="category">Select a category:</label>
+    <select id="category" name="category">
+      <option value="menFashion">Men's Fashion</option>
+      <option value="womenFashion">Women's Fashion</option>
+      <option value="mobile">Mobiles, Computers</option>
+      <option value="electronics">TV, Appliances, Electronics</option>
+      <option value="home">Home, Kitchen, Pets</option>
+      <option value="health">Beauty, Health, Grocery</option>
+      <option value="fitness">Sports, Fitness, Bags, Luggage</option>
+      <option value="books">Books</option>
+      <option value="baby">Toys, Baby Products, Kids Fashion</option>
+    </select>
+    <input type="text" placeholder="Description" name="description" />
+    <input
+      class="soft-ui rounded-square update_btn"
+      type="submit"
+      value="Add Product"
+    />
+  </form>
+</main>
+<%- include('partials/footer'); %>

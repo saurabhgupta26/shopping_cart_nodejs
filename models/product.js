@@ -11,7 +11,7 @@ var productSchema = new Schema ({
         type: Number,
         required: true
     },
-    catgory: {
+    category: {
         type: String,
         required: true
     },
@@ -26,7 +26,7 @@ var productSchema = new Schema ({
     },
     reviews : [{
     type: Schema.Types.ObjectId,
-    ref: "Admin"
+    ref: "User"
 }]
 }, { timestamps : true
 });
