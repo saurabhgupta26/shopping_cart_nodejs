@@ -1,11 +1,18 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
+<%- include('partials/header'); %>
+
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-  </body>
-</html>
+    <% if(user) { %>
+        <% console.log(user) %>
+      <h2>Hello, <%= user.username %></h2>
+      <a class="soft-ui rounded-square logBtn" href="/catalogue/list/">Product List</a>
+      <a href="/users/logout">LOGOUT</a>
+
+  <% } else { %>
+      <div class="flex">
+          <a class="soft-ui rounded-square logBtn" href="/users/register">Register</a>
+          <a class="soft-ui rounded-square logBtn" href="users/login"><i class="fas fa-at"></i> Login by Email</a>
+      </div>
+  <% }%>
+
+  <%- include('partials/footer'); %>

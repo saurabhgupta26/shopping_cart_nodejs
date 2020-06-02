@@ -1,18 +1,23 @@
-var Admin = require('../models/admin');
+var Admin = require('../models/Admin');
 var User = require('../models/user');
 var passport = require('passport');
 
 exports.checkAdmin = async function (req, res, next) {
     try {
         if (req.session.adminId || req.session.passport) {
-			// console.log(req.session)
-            var admin = await Admin.findById(req.session.passport.user)
-			if(!admin) res.redirect('/admin/login')
-			res.locals.user = admin;
-			next() 
+            var admin = await Admin.findById(req.admin)
+            if(user.isVerified) {
+                if(admin.isAdmin) {
+                    next();
+            } else {
+                res.redirect('/admin/login')
+            }
+        } else {
+            return res.redirect('/verify');
+        }
         } else { 
-			next()
-		}
+        res.redirect('/admin/login');
+        }
     } catch (error) {
         next(error);
     }
@@ -25,9 +30,9 @@ exports.loggedUser = async function (req, res, next) {
             // console.log(req.session, "LOGGED USER INFO");
             var id = req.session.userId || req.session.passport.user;
             if(req.session.userId) {
-            var user = await User.findById(id, '-password');
-            if(user) {
-                req.user = user;
+            var logged = await User.findById(id, '-password');
+            if(logged) {
+                req.userId = user.id;
                 res.locals.user = {
                     id : user.id,
                     name : user.name,
@@ -36,16 +41,13 @@ exports.loggedUser = async function (req, res, next) {
             }
         } else {
             // console.log(req.session, "LOGGED USER INFO in admin");
-			var logged = await Admin.findById(id, '-password');
-			// console.log(logged, "Showing logged");
+            var logged = await Admin.findById(id, '-password');
             if(logged) {
-                req.userId = logged.id;
+                req.userId = user.id;
                 res.locals.user = {
-                    id : logged.id,
-                    name : logged.name,
-					isAdmin : logged.isAdmin,
-					username : logged.username,
-					email : logged.email
+                    id : user.id,
+                    name : user.name,
+                    isAdmin : user.isAdmin,
                 };   
             }
         }

@@ -19,11 +19,12 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 var catalogueRouter = require('./routes/catalogue');
+var cartRouter = require('./routes/carts');
 
 
 //connect to db
 mongoose.connect(
-  "mongodb://localhost/sample",
+  "mongodb://localhost/sample2",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -63,16 +64,19 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(auth.userName);
+// // app.use(auth.userName);
+
+
 
 
 
 
 // ROUTING MIDDLEWARES
 
-app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use(auth.adminName);
+app.use('/cart', cartRouter);
+app.use(auth.checkAdmin);
+app.use('/', indexRouter);
 app.use('/admin', adminRouter);
 app.use('/catalogue', catalogueRouter);
 

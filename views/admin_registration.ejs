@@ -6,7 +6,7 @@
 </header>
 <main class="article_box">
   <form action="/admin/register" method="POST">
-    <h2 class="Sign Up">Register</h2>
+    <h2 class="Sign Up center_text">Register</h2>
 
     <input type="text" placeholder="Full Name" name="name" />
 
@@ -15,18 +15,16 @@
 
     <input type="password" name="password" id="" placeholder="Password" />
 
-
+<div class="flex">
     <input
       class="soft-ui rounded-square update_btn"
       type="submit"
       value="Register"
     />
+  </div>
+</form>
+<a href="/admin/login"><button class="soft-ui rounded-square update_btn">Login</button></a>
 
-    <a href="/articles/login">
-      <button class="soft-ui rounded-square update_btn">Login</button></a
-    >
-  </form>
-
-  <a href="/admin/login">Login by Email</a>
+  <!-- <a href="/admin/login">Login by Email</a> -->
 </main>
 <%- include('partials/footer'); %>

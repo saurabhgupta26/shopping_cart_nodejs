@@ -1,61 +1,147 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var User = require('../models/user');
+var Admin = require("../models/admin");
+var auth = require("../middleware/auth");
+var multer = require("multer");
+var path = require("path");
+var User = require("../models/user");
+var nodemailer = require("nodemailer");
+var smtpTransport = require("nodemailer-smtp-transport");
+
+// using multer
+
+var storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, path.join(__dirname, "../public/images/uploads"));
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+var upload = multer({ storage: storage });
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get("/", function (req, res, next) {
+  res.send("respond with a resource");
 });
 
-router.get('/register', (req, res) => {
-  res.render('register');
+// Register user form 
+
+router.get("/register", (req, res) => {
+  res.render("register");
 });
 
+// Reguster user POST
 
+router.post("/register", async (req, res, next) => {
+//   var user = await User.create(req.body);
+  try {
+    let transporter = nodemailer.createTransport(
+      smtpTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.GMAIL_ID,
+          pass: process.env.GMAIL_PASSCODE,
+        },
+      })
+    );
+    var verification = Math.random().toString(36).slice(2);
+    let mailOptions = {
+      from: process.env.GMAIL_ID,
+      to: req.body.email,
+      subject:
+        "Email verification code for the Shopping Cart :- Created By Saurabh Gupta",
+      test: "First mail via nodemailer",
+      html: `<h1>Dear User,<br>Your One Time Security Code is:</h1> ${verification}. <br> Code is valid for 30 minutes. <br> Please do not reply to this email. `,
+    };
+    req.body.verification = verification;
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) return console.log(err);
+      console.log("Message sent: %", info.response);
+    });
 
-
-// if(email === "saurabh@gmail.com") {
-
-// }
-
-
-
-router.post('/register', (req, res, next) => {
-  User.create(req.body, (err, createdUser) => {
-    if (err) return next(err);
-    if (createdUser) {
-      res.redirect('/users/login');
+    var user = await User.create(req.body);
+    if (user) {
+      console.log(user, "CREATED USER");
+      // res.send("success");
+      res.status(200).redirect("/users/login");
     }
-  })
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.get('/login', (req, res) => {
-	res.render('login');
+// User login form
+
+router.get("/login", (req, res) => {
+  res.render("login");
 });
 
-router.post('/login', (req, res, next) => {
+// User Login Post
+
+router.post('/login', async (req, res, next) => {
 	var { email, password } = req.body;
-	// if(!email || !password) // TO CHECK FOR THE LOCAL USER IF THEY DON"T REGISTER WITHOUT THE PASSWORD
-	User.findOne({ email }, (err, user) => {
-		if (err) return next(err);
-		if (!user) {
-			console.log('wrong email');
-			req.flash('error', 'email is not registered');
-			return res.redirect('/users/login');
+	if (!email || !password)
+		return res.status(400).send({
+			success: false,
+			error: 'Email/Password Required'
+		})
+		try {
+			var user = await User.findOne({ email });
+			  if (!user) {
+				console.log("wrong email");
+				req.flash("error", "email is not registered");
+				return res.redirect("/users/login");
+			  }
+			  if (!user.verifyPassword(password)) {
+				console.log("Wrong password");
+				return res.redirect("/users/login");
+			  }
+			  //log a user in
+			  //creating a session on the server side
+			  req.session.user = user.id; //this line will create a session on the server side. 5 different users, 5 different sessions, grab the id, make a cookie and send it to the client side.
+        req.session.username = user.name;
+        // console.log(req.session.username, "USERsss ID IS HERE");
+			  res.redirect("/catalogue/list");
+		
+		} catch (error) {
+			next(error);
 		}
-		if (!user.verifyPassword(password)) {
-			console.log('Wrong password');
-			return res.redirect('/users/login');
-		}
-		//log a user in
-		//creating a session on the server side
-		req.session.userId = user.id; //this line will create a session on the server side. 5 different users, 5 different sessions, grab the id, make a cookie and send it to the client side.
-		req.session.username = user.name;
-		res.redirect('/articles');
-		// Article.find({}, (err, articles) => {
-		// if (err) return next(err);
-		// res.render('articlesList', { articles });
+  });
+
+
+// VERIFICATION OF ID
+router.post('/:user/verify', async(req,res) => {
+	try{
+		// console.log(req.params.user, "USERID");
+	  var user = await User.findById(req.params.user);
+	  //  console.log(user, "REached third");
+	  if (user.verification === req.body.verification) {
+		  //  console.log("reached here");
+		var updateUser = await User.findByIdAndUpdate(req.params.user, { isVerified: true }, { new: true });
+		// console.log(updateUser, "reached Updated User");
+		res.redirect(`/catalogue/list`)
+	  } 
+	  if(!user.verification === req.body.verification){
+		  // console.log(req.body.verification, "BODY verify");
+		res.send("not verified")
+	  }
+	}catch(err){
+	  res.send(err)
+	}
+  })
+
+	router.get('/logout', (req, res) => {
+		delete req.session.adminId; //DELETE THE specific session userId
+		req.session.destroy();
+		res.clearCookie('connect.sid');
+		res.redirect('/admin/login');
 	});
-});
+
+
 
 module.exports = router;

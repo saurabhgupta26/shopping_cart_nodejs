@@ -67,33 +67,15 @@ try {
 	}
 });
 
-// VERIFICATION OF ID
-router.post('/:adminId/verify', async(req,res) => {
-	try{
-		// console.log(req.params.adminId, "adminID");
-	  var admin = await Admin.findById(req.params.adminId);
-	//   console.log(admin, "REached third");
-	  if (admin.verification === req.body.verification) {
-		//   console.log("reached here");
-		var updateAdmin = await Admin.findByIdAndUpdate(req.params.adminId, { isVerified: true }, { new: true });
-		console.log(updateAdmin, "reached second");
-		res.redirect(`/catalogue/${admin.id}/list`)
-	  } 
-	  if(!admin.verification === req.body.verification){
-		  console.log(req.body.verification, "BODY verify");
-		res.send("not verified")
-	  }
-	}catch(err){
-	  res.send(err)
-	  console.log(err)
-	}
-  })
 
 // ADMIN LOGIN
 
 router.get('/login', (req, res) => {
+	// console.log(req.session);
 	res.render('admin_login');
 });
+
+// Admin Login Post
 
 router.post('/login', async (req, res, next) => {
 	var { email, password } = req.body;
@@ -114,9 +96,9 @@ router.post('/login', async (req, res, next) => {
 				return res.redirect('/admin/login');
 			}
 			//creating a session on the server side
-			req.session.adminId = admin.id; //this line will create a session on the server side. 5 different users, 5 different sessions, grab the id, make a cookie and send it to the client side.
-			req.session.username = admin.name;
-			res.redirect(`/catalogue/${admin.id}/list`);
+			req.session.userId = user.id; //this line will create a session on the server side. 5 different users, 5 different sessions, grab the id, make a cookie and send it to the client side.
+			req.session.username = user.name;
+			res.redirect(`/catalogue/list`);
 	} catch (error) {
 		next(error);
 		
@@ -124,7 +106,7 @@ router.post('/login', async (req, res, next) => {
 });
 
 
-router.use(auth.checkAdminLogged);
+// router.use(auth.checkAdminLogged);
 
 router.get('/:adminId/adminProfile', async function (req, res, next) {
 	// console.log(req.body, 'koke');

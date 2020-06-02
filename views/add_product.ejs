@@ -6,20 +6,24 @@
 </header>
 <main class="article_box">
   <form
-    action="/catalogue/<%=admin.id %>/add_product"
+    action="/catalogue/add_product"
     method="POST"
     enctype="multipart/form-data"
   >
     <h1 class="Sign Up">Add Item</h1>
-
+    <div class="flex1">
+    <h3>Name of the Product</h3>
+    <input type="text" placeholder="Name of the Product" name="name" />
+  </div>
+  <div class="flex1">
     <h3>Upload an Image</h3>
     <input type="file" name="image" />
-
-    <input type="text" placeholder="Name of the Product" name="name" />
-
+  </div>
+  <div class="flex1">
+    <h3>Set Price:</h3>
     <input type="number" placeholder="Price" name="price" />
-
-    <label for="category">Select a category:</label>
+    <span class="flex">
+    <label for="category"><h3>Select a category:</h3></label>
     <select id="category" name="category">
       <option value="menFashion">Men's Fashion</option>
       <option value="womenFashion">Women's Fashion</option>
@@ -31,7 +35,13 @@
       <option value="books">Books</option>
       <option value="baby">Toys, Baby Products, Kids Fashion</option>
     </select>
-    <input type="text" placeholder="Description" name="description" />
+  </span>
+  </div>
+  <div class="flex1">
+    <h3>Description:</h3>
+    <textarea name="description" id="" cols="100" rows="10" placeholder="Description"></textarea>
+  </div>
+    <br>
     <input
       class="soft-ui rounded-square update_btn"
       type="submit"

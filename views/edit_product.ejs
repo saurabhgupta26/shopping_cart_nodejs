@@ -11,6 +11,7 @@
     <p> <%= admin.username %> </p>
     <form action="/catalogue/<%=admin.id %>/edit_product" method="POST" enctype="multipart/form-data">
     <h2 class="Sign Up">Edit Product</h2>
+    <% console.log(product, "producr") %>
 
     <input type="text" placeholder="Name of the Product" name="name" value="<%= product.name %> "/>
     <input type="number" placeholder="Price" name="price" value="<%= product.price %> "/>
@@ -26,7 +27,8 @@
       <option value="books">Books</option>
       <option value="baby">Toys, Baby Products, Kids Fashion</option>
     </select>
-    <input type="text" placeholder="Description" name="description" value="<%= product.description %> "/>
+    
+    <textarea name="description" id="" cols="30" rows="10" value="<%= product.description %>" ><%= product.description %></textarea>
     <h3>Upload an Image</h3>
     <input type="file" name="image">
     <input class="soft-ui rounded-square update_btn" type="submit" value="Update" />

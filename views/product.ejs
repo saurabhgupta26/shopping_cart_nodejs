@@ -1,0 +1,28 @@
+<%- include('partials/header'); %>
+<%- include('partials/slider'); %>
+
+<header>
+  <div class="header_background flex">
+    <div class="logo flex">
+      
+    </div>
+  </div>
+</header>
+<main class="article_box">
+    <a href="/catalogue/list"><button class="flex1"><i class="fas fa-chevron-circle-left"></i> </button> </a>    
+    <div class="profile_section flex">  
+        <img class="product_image" src="/images/uploads/<%= product.image %>" alt="image">
+        <h1 class="title center_text"><%= product.name %> </h1>
+        <p><%= product.description %></p>
+        <a href="/cart/<%= product.id %>/shoppingBasket/add"><button><i class="fas fa-shopping-cart"></i> Add to Cart </button> </a>
+
+        </div>
+        <section class="flex">
+            <h1 class="title"><i class="fas fa-rupee-sign"></i><%= product.price %> </h1>
+            <% if(user.id && user.email === "saurabhguptaviet@gmail.com" ) { %>
+                <a href="/catalogue/<%= product.id %>/editProduct"><button> <i class="fas fa-edit"></i>Edit Product </button> </a>
+            <%}    %>
+        </section>        
+  </main>
+
+<%- include('partials/footer'); %>
