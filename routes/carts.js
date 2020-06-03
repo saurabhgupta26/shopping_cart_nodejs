@@ -9,7 +9,7 @@ var path = require('path');
 
 router.use(auth.loggedUser);
 
-router.get("/:productId/shoppingBasket/add", auth.checkLogin ,async function (req, res, next) {
+router.get("/:productId/shoppingBasket/add", auth.loggedUser ,async function (req, res, next) {
     try {
       var productId = req.params.productId;
       var cart = await Cart.findOne({userId: req.user, product: productId});
@@ -25,8 +25,9 @@ router.get("/:productId/shoppingBasket/add", auth.checkLogin ,async function (re
         }
         cart = await Cart.create(itemObj);
         var user = await User.findByIdAndUpdate(req.user, {$push: {cartItems: cart.id}},{new:true});
+        console.log(user, "Product added");
       }
-      res.redirect("/user/cart")
+    //   res.redirect("/users/shoppingBasket");
       
     } catch (error) {
       next(error);

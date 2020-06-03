@@ -24,6 +24,11 @@ var userSchema = new Schema ({
         type: Boolean,
         default: false
     },
+    cartItems : [{
+        type: Schema.Types.ObjectId,
+        ref : "Cart",
+        default: ""
+    }],
     github : {
         name : String,
         id : String

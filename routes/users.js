@@ -135,6 +135,17 @@ router.post('/:user/verify', async(req,res) => {
 	}
   })
 
+  router.get('/shoppingBasket', async function(req, res) {
+    try {
+      console.log(req.params.cartId);
+      // var basket = Cart.findById()
+    } catch (error) {
+      next(error);
+    }
+  })
+
+
+
 	router.get('/logout', (req, res) => {
 		delete req.session.adminId; //DELETE THE specific session userId
 		req.session.destroy();
