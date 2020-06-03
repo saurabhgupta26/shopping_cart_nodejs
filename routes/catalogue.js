@@ -25,7 +25,7 @@ router.use(auth.checkAdmin);
 
 
 router.get('/list', auth.loggedUser, async function(req, res, next) {
-    // console.log("catalogue",req.user);
+    console.log("catalogue list console",req.user);
     if(req.user.isVerified) {
         var product = await Product.find({});
         // console.log(product, "Product got here")

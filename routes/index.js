@@ -15,33 +15,4 @@ router.get('/auth/github/callback', passport.authenticate('github', { failureRed
 	res.redirect('/catalogue/list');
 });
 
-// verification route
-
-// router.post("/verify", async (req, res) => {
-//   try {
-//     // console.log(req.params.adminId, "adminID");
-//     var user = await User.findById(req.params.userId);
-//     if (user.verification === req.body.verification) {
-//       var updateUser = await User.findByIdAndUpdate(
-//         req.params.userId,
-//         { isVerified: true },
-//         { new: true }
-//       );
-//       console.log(updateUser, "reached second");
-//       res.redirect(`/catalogue/list`);
-//     }
-//     if (!user.verification === req.body.verification) {
-//       console.log(req.body.verification, "BODY verify");
-//       res.send("not verified");
-//     }
-//   } catch (err) {
-//     res.send(err);
-//     console.log(err);
-//   }
-// });
-
-
-
-
-
 module.exports = router;

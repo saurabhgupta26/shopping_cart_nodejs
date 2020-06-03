@@ -19,12 +19,12 @@ exports.checkAdmin = async function (req, res, next) {
 }
 
 exports.loggedUser = async function (req, res, next) {
-    // console.log(req.session, "CHECKING PASSPORT");
+    console.log(req.session, "CHECKING PASSPORT");
     try {
-        if (req.session.passport || req.session.userId) {
-            // console.log(req.session, "LOGGED USER INFO");
-            var id = req.session.userId || req.session.passport.user;
-            if(req.session.userId) {
+        if (req.session.passport || req.session.user) {
+            console.log(req.session, "LOGGED USER INFO");
+            var id = req.session.user || req.session.passport.user;
+            if(req.session.user) {
             var user = await User.findById(id, '-password');
             if(user) {
                 req.user = user;

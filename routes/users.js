@@ -4,6 +4,7 @@ var Admin = require("../models/admin");
 var auth = require("../middleware/auth");
 var multer = require("multer");
 var path = require("path");
+var Cart =require("../models/cart")
 var User = require("../models/user");
 var nodemailer = require("nodemailer");
 var smtpTransport = require("nodemailer-smtp-transport");
@@ -94,7 +95,7 @@ router.post('/login', async (req, res, next) => {
 			var user = await User.findOne({ email });
 			  if (!user) {
 				console.log("wrong email");
-				req.flash("error", "email is not registered");
+				// req.flash("error", "email is not registered");
 				return res.redirect("/users/login");
 			  }
 			  if (!user.verifyPassword(password)) {
@@ -105,7 +106,7 @@ router.post('/login', async (req, res, next) => {
 			  //creating a session on the server side
 			  req.session.user = user.id; //this line will create a session on the server side. 5 different users, 5 different sessions, grab the id, make a cookie and send it to the client side.
         req.session.username = user.name;
-        // console.log(req.session.username, "USERsss ID IS HERE");
+        console.log(req.session.username, "USERsss ID IS HERE");
 			  res.redirect("/catalogue/list");
 		
 		} catch (error) {
@@ -135,15 +136,30 @@ router.post('/:user/verify', async(req,res) => {
 	}
   })
 
-  router.get('/shoppingBasket', async function(req, res) {
+  router.get('/shoppingBasket/',auth.loggedUser , async function(req, res, next) {
     try {
-      console.log(req.params.cartId);
-      // var basket = Cart.findById()
+      console.log(req.user.cartItems, "CART CONSOLE FROM USERS, Shopping basket id");
+      var populated = req.user.cartItems;
+      var cart = await Cart.find(populated);
+      console.log(cart,"--------------");
+      // we have to do populate as well here
+      // res.render('shoppingBasket', {cart})
     } catch (error) {
       next(error);
     }
   })
-
+  // router.get("/cart", async (req, res, next) => {
+  //   try {
+  //     let cart = await Cart.find({ userId: req.userId }).populate(
+  //       "product",
+  //       "-createdAt -updatedAt -description"
+  //     );
+  //     res.render("cart", { cart });
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // });
+  
 
 
 	router.get('/logout', (req, res) => {
