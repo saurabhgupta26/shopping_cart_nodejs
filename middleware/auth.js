@@ -1,11 +1,12 @@
 var Admin = require('../models/admin');
 var User = require('../models/user');
+var Product = require('../models/product');
 var passport = require('passport');
 
 exports.checkAdmin = async function (req, res, next) {
     try {
         if (req.session.adminId || req.session.passport) {
-			// console.log(req.session)
+			console.log(req.session);
             var admin = await Admin.findById(req.session.passport.user)
 			if(!admin) res.redirect('/admin/login')
 			res.locals.user = admin;

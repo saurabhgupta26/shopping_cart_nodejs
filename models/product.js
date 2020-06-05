@@ -26,7 +26,7 @@ var productSchema = new Schema ({
     },
     reviews : [{
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "Review"
 }]
 }, { timestamps : true
 });

@@ -22,7 +22,7 @@
     <h4> <i class="fas fa-rupee-sign"></i> <%= a.product.price %> X <%= a.quantity %>  =  <i class="fas fa-rupee-sign"></i> <%= a.product.price * a.quantity %>.00</h4>
   </div>
       <aside class="flex flex2">
-        <form action="/cart/update" method="POST">
+        <form action="/cart/update/<%= a.product.id %>" method="POST">
           <label for="quantity">Update Quantity</label>
           <select id="quantity" name="quantity">
             <option value="1">1</option>
@@ -38,7 +38,6 @@
           <input
             type="submit"
             class="soft-ui rounded-square updateBtn"
-            value="Update"
           />
         </form>
         <a href="/cart/<%=cart.id %>/delete"><button>Delete</button> </a>

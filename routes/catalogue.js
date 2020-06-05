@@ -44,7 +44,8 @@ router.get('/list/:productId', auth.loggedUser, async function(req, res, next) {
     try {
         // console.log("catalogue",req.params.productId);
         var id = req.params.productId;        
-        var product = await Product.findById(id);
+        var product = await Product.findById(id).populate('reviews');
+        console.log(product, 'inside producxt details page')
         // var productReview = await Review.findById(id)
         // console.log(productReview, "=================================");
 
@@ -63,18 +64,24 @@ router.post('/:product/review/add', auth.loggedUser, async function(req, res, ne
         var review = await Review.create(req.body);
         console.log(review, "entered review");
         var productReview = await Product.findByIdAndUpdate(productId, {$push:{reviews: review.id}},{new: true});
-        // var product = await Product.find(productId).populate("reviews").populate({path:reviews, ref: "review"} );
+        // var product = await Product.findById(productId).populate("reviews");
         // console.log(productReview, "=================================");
         // var rev = await Product.find(productId).populate("reviews").populate({
         //     path: '',
         //     model: 'Other'
         //   });
-        // var cart = await Cart.find({_id :{$in: [cartItem]}}).populate("product");
+        // var cart = await Cart.find(productId)
+        // .populate("product")
+        // .populate({
+        //     path:"reviews"
+        // });
+        // console.log(cart, "--=-=-=-=-==============")
 
         // console.log(product, "==========sdasdasdsa sa da as=========");
         // console.log(product, "_------------------------------__________---")
         // res.redirect(`/catalogue/list/${productId}`);
         // res.render('product', {})
+        res.redirect(`/catalogue/list/${productId}`)
     } catch (error) {
         next(error);
     }

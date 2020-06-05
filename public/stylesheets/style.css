@@ -79,9 +79,10 @@ h1 {
   padding: 10px;
 }
 .review_card {
-  width: 900px;
+  width: 1200px;
   border: 2px solid black;
   padding: 10px;
+  border-radius: 10px;
 }
 .review_btn {
   width: 100px;
@@ -353,7 +354,7 @@ body {
   font-family: 'Roboto';
   background-color:#EEF0F0;
   color:#121;
-  height: 100vh;
+  height: 100%;
 }
 
 .menu {

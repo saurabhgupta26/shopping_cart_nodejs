@@ -32,17 +32,18 @@ router.get("/:productId/shoppingBasket/add", auth.loggedUser ,async function (re
     }
   });
 
-  router.get('/update', auth.loggedUser, async function(req, res, next) {
+  router.post('/update/:productId/', auth.loggedUser, async function(req, res, next) {
     try {
+      console.log(req.body, "========================== body")
       var productId = req.params.productId;
-      var cart = await Cart.findOne({userId: req.user, product: productId});
+      var cart = await Cart.findById(productId);
       console.log(cart, "CART update")
   
       if(cart) {
-        cart = await Cart.findByIdAndUpdate(cart.id, {$inc: {quantity: product.quantity}});
+        cart = await Cart.findByIdAndUpdate(cart.id, {$inc: {quantity: cart.quantity}});
       }
-      console.log(user, "Product added");
-      res.redirect("/users/shoppingBasket");
+      console.log(cart, "Product added");
+      res.redirect("/users/shoppingBasket/");
     } catch (error) {
       next(error);
     }
