@@ -21,6 +21,7 @@ router.get("/:productId/shoppingBasket/add", auth.loggedUser ,async function (re
       } else {
         var newProduct = {product: productId, userId: req.user, quantity: 1};
         cart = await Cart.create(newProduct);
+        console.log(cart, "CARTS IN THE JS");
         var user = await User.findByIdAndUpdate(req.user, {$push: {cartItems: cart.id}},{new:true});
         console.log(user, "Product added");
       }

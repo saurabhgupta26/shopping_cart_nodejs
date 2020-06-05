@@ -136,31 +136,22 @@ router.post('/:user/verify', async(req,res) => {
 	}
   })
 
-  router.get('/shoppingBasket/',auth.loggedUser , async function(req, res, next) {
+  router.get('/shoppingBasket/', auth.loggedUser, async function(req, res, next) {
     try {
-      console.log(req.user.cartItems, "CART CONSOLE FROM USERS, Shopping basket id");
-      var populated = req.user.cartItems;
-      var cart = await Cart.find(populated);
-      console.log(cart,"--------------");
-      // we have to do populate as well here
-      // res.render('shoppingBasket', {cart})
+      console.log(req.user.id, "CART CONSOLE FROM USERS, Shopping basket id");
+      var cart = await Cart.find({userId : req.user.id}).populate("product");
+      console.log(cart, "----------------------------")
+      res.render('shoppingBasket', {cart})
     } catch (error) {
       next(error);
     }
   })
-  // router.get("/cart", async (req, res, next) => {
-  //   try {
-  //     let cart = await Cart.find({ userId: req.userId }).populate(
-  //       "product",
-  //       "-createdAt -updatedAt -description"
-  //     );
-  //     res.render("cart", { cart });
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // });
-  
 
+  // var cartItem = req.user.cartItems;
+  //     var cart = await Cart.find({_id :{$in: [cartItem]}}).populate("product");
+  //     console.log(cart,"--------------");
+  //     // we have to do populate as well here
+  //     res.render('shoppingBasket', {cart})
 
 	router.get('/logout', (req, res) => {
 		delete req.session.adminId; //DELETE THE specific session userId

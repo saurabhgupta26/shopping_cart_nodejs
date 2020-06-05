@@ -8,6 +8,8 @@ var path = require('path');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var auth = require('../middleware/auth');
+var Review = require('../models/review');
+var User = require('../models/user');
 
 // using multer
 
@@ -41,21 +43,44 @@ router.get('/list', auth.loggedUser, async function(req, res, next) {
 router.get('/list/:productId', auth.loggedUser, async function(req, res, next) {
     try {
         // console.log("catalogue",req.params.productId);
-        var id = req.params.productId;
+        var id = req.params.productId;        
         var product = await Product.findById(id);
-        // console.log(product, "product info");
+        // var productReview = await Review.findById(id)
+        // console.log(productReview, "=================================");
+
         res.render('product', {product});
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.post('/:product/review/add', auth.loggedUser, async function(req, res, next) {
+    try {
+        var productId = req.params.product;
+        req.body.userId = req.user.id;
+        console.log(req.user, "-------")
+        console.log(req.body, "______")
+        var review = await Review.create(req.body);
+        console.log(review, "entered review");
+        var productReview = await Product.findByIdAndUpdate(productId, {$push:{reviews: review.id}},{new: true});
+        // var product = await Product.find(productId).populate("reviews").populate({path:reviews, ref: "review"} );
+        // console.log(productReview, "=================================");
+        // var rev = await Product.find(productId).populate("reviews").populate({
+        //     path: '',
+        //     model: 'Other'
+        //   });
+        // var cart = await Cart.find({_id :{$in: [cartItem]}}).populate("product");
+
+        // console.log(product, "==========sdasdasdsa sa da as=========");
+        // console.log(product, "_------------------------------__________---")
+        // res.redirect(`/catalogue/list/${productId}`);
+        // res.render('product', {})
     } catch (error) {
         next(error);
     }
 })
 
-
-
-
-
-
- router.use(auth.checkAdmin);
+router.use(auth.checkAdmin);
 
 router.get('/add_product', function(req, res, next) {
     res.render('add_product');
