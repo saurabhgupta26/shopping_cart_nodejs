@@ -5,6 +5,7 @@ var auth = require('../middleware/auth');
 var multer = require('multer');
 var path = require('path');
 var nodemailer = require('nodemailer');
+var User = require('../models/user');
 var smtpTransport = require('nodemailer-smtp-transport');
 
 
@@ -141,7 +142,37 @@ router.post('/:adminId/editAdmin', upload.single("image"), async function (req, 
 	} catch (error) {
 		next(error);
 	}
+});
+
+// GET ALL USERS IN THE LIST
+
+router.get('/users/', async function(req, res, next) {
+	try {
+		var totalUsers = await User.find({});
+		console.log(totalUsers, "TOTAL USERS IN THE USER =++++_++_+_+_+_+_+_+_+");
+		res.render('users', {totalUsers});
+	} catch (error) {
+		next(error);
+	}
+
+});
+
+// BLOCK and UNBLOCK
+router.get('/:userId/block/', async function (req, res, next) {
+	try {
+		var userId = req.params.userId;
+		var blocked = await Users.findByIdAndUpdate(userId, { isBlocked: true }, { new: true });
+		console.log(blocked, "THE BLOCKED USER");
+
+	} catch (error) {
+		next(error);
+	}
 })
+
+
+
+
+
 
 router.get('/logout', (req, res) => {
 	delete req.session.adminId; //DELETE THE specific session userId

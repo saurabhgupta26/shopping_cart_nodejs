@@ -45,10 +45,7 @@ router.get('/list/:productId', auth.loggedUser, async function(req, res, next) {
         // console.log("catalogue",req.params.productId);
         var id = req.params.productId;        
         var product = await Product.findById(id).populate('reviews');
-        console.log(product, 'inside producxt details page')
-        // var productReview = await Review.findById(id)
-        // console.log(productReview, "=================================");
-
+        console.log(product, 'inside producxt details page');
         res.render('product', {product});
     } catch (error) {
         next(error);
@@ -64,23 +61,6 @@ router.post('/:product/review/add', auth.loggedUser, async function(req, res, ne
         var review = await Review.create(req.body);
         console.log(review, "entered review");
         var productReview = await Product.findByIdAndUpdate(productId, {$push:{reviews: review.id}},{new: true});
-        // var product = await Product.findById(productId).populate("reviews");
-        // console.log(productReview, "=================================");
-        // var rev = await Product.find(productId).populate("reviews").populate({
-        //     path: '',
-        //     model: 'Other'
-        //   });
-        // var cart = await Cart.find(productId)
-        // .populate("product")
-        // .populate({
-        //     path:"reviews"
-        // });
-        // console.log(cart, "--=-=-=-=-==============")
-
-        // console.log(product, "==========sdasdasdsa sa da as=========");
-        // console.log(product, "_------------------------------__________---")
-        // res.redirect(`/catalogue/list/${productId}`);
-        // res.render('product', {})
         res.redirect(`/catalogue/list/${productId}`)
     } catch (error) {
         next(error);
@@ -98,8 +78,6 @@ router.post('/add_product', upload.single("image"), async function(req, res, nex
     try {    
             var product = await Product.create(req.body);
             if (product) {
-                // console.log(product, "CREATED PRODUCT");
-                // res.send("success");
               res.redirect(`/catalogue/list`);
             }
         } catch (error) {
@@ -109,7 +87,7 @@ router.post('/add_product', upload.single("image"), async function(req, res, nex
 
 router.get('/edit_product', async function(req, res, next) {
     var productId = req.params.productId;
-    // console.log(productId, "productId");
+    console.log(productId, "THIS IS STILL LEFT TO BE DONE");
     // var product = await Product.findById(productId);
     // res.render('edit_product', {product});
 });

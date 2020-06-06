@@ -5,6 +5,9 @@
         <li class="flex flex1">
             <a href="/admin/logout/"><button class="logout_btn> <i class="fas fa-sign-out-alt">Log Out</i></button></a>
             <button><a href="/users/shoppingBasket/"><i class="fas fa-shopping-cart"></i>Cart</a></button>
+            <% if(req.admin.email === "saurabhguptaviet@gmail.com") {
+            <button><a href="/admin/users/"><i class="fas fa-shopping-cart"></i>All Users</a></button>
+            }
         </li>
         <li><a href="#">Mobiles, Computers</a></li>
         <li><a href="#">TV, Appliances, Electronics</a></li>
