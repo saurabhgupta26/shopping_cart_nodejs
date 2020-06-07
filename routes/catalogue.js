@@ -23,12 +23,17 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({storage : storage});
-router.use(auth.checkAdmin);
+// router.use(auth.checkAdmin);
 
 
 router.get('/list', auth.loggedUser, async function(req, res, next) {
     console.log("catalogue list console",req.user);
-    if(req.user.isVerified) {
+    if(req.user.isBlocked) {
+        console.log("USER IS BLOCKED BY THE ADMIN");
+        // req.flash("error", "You are BLOCKED, Please try to connect with the Office");
+        res.redirect('/users/login');
+    }
+    else if(req.user.isVerified) {
         var product = await Product.find({});
         // console.log(product, "Product got here")
         return res.render('catalogue', {product});

@@ -1,46 +1,39 @@
 <%- include('partials/header'); %> <%- include('partials/slider'); %>
-<header>
-  <div class="header_background flex">
-    <div class="logo flex"></div>
-  </div>
-</header>
-<main class="article_box">
-  <form
-    action="/catalogue/add_product"
-    method="POST"
-    enctype="multipart/form-data"
-  >
+<%- include('partials/navbar'); %>
+
+<main class="article_box product_box">
+  <form action="/catalogue/add_product" method="POST" enctype="multipart/form-data">
     <h1 class="Sign Up">Add Item</h1>
     <div class="flex1">
-    <h3>Name of the Product</h3>
-    <input type="text" placeholder="Name of the Product" name="name" />
-  </div>
-  <div class="flex1">
-    <h3>Upload an Image</h3>
-    <input type="file" name="image" />
-  </div>
-  <div class="flex1">
-    <h3>Set Price:</h3>
-    <input type="number" placeholder="Price" name="price" />
-    <span class="flex">
-    <label for="category"><h3>Select a category:</h3></label>
-    <select id="category" name="category">
-      <option value="menFashion">Men's Fashion</option>
-      <option value="womenFashion">Women's Fashion</option>
-      <option value="mobile">Mobiles, Computers</option>
-      <option value="electronics">TV, Appliances, Electronics</option>
-      <option value="home">Home, Kitchen, Pets</option>
-      <option value="health">Beauty, Health, Grocery</option>
-      <option value="fitness">Sports, Fitness, Bags, Luggage</option>
-      <option value="books">Books</option>
-      <option value="baby">Toys, Baby Products, Kids Fashion</option>
-    </select>
-  </span>
-  </div>
-  <div class="flex1">
-    <h3>Description:</h3>
-    <textarea name="description" id="" cols="100" rows="10" placeholder="Description"></textarea>
-  </div>
+      <h3>Name of the Product</h3>
+      <input type="text" placeholder="Name of the Product" name="name" />
+    </div>
+    <div class="flex1">
+      <h3>Upload an Image</h3>
+      <input type="file" name="image" />
+    </div>
+    <div class="flex1">
+      <h3>Set Price:</h3>
+      <input type="number" placeholder="Price" name="price" />
+      <span class="flex">
+      <label for="category"><h3>Select a category:</h3></label>
+      <select id="category" name="category">
+        <option value="menFashion">Men's Fashion</option>
+        <option value="womenFashion">Women's Fashion</option>
+        <option value="mobile">Mobiles, Computers</option>
+        <option value="electronics">TV, Appliances, Electronics</option>
+        <option value="home">Home, Kitchen, Pets</option>
+        <option value="health">Beauty, Health, Grocery</option>
+        <option value="fitness">Sports, Fitness, Bags, Luggage</option>
+        <option value="books">Books</option>
+        <option value="baby">Toys, Baby Products, Kids Fashion</option>
+      </select>
+    </span>
+    </div>
+    <div class="flex1">
+      <h3>Description:</h3>
+      <textarea name="description" id="" cols="100" rows="10" placeholder="Description"></textarea>
+    </div>
     <br>
     <input
       class="soft-ui rounded-square update_btn"

@@ -1,11 +1,12 @@
 <%- include('partials/header'); %>
+<%- include('partials/navbar'); %>
 
     <h2>Welcome to Shopping Cart</h2>
     <div class="right_side">
         <button><a href="/users/shoppingBasket/"> Shopping Cart </a></button>
     </div>
     <% if(user) { %>
-      <h2>Hello, <%= user.username %></h2>
+      <h2>Hello, <%= user.name %></h2>
       <a class="soft-ui rounded-square logBtn" href="/catalogue/list/">Product List</a>
       <a href="/users/logout">LOGOUT</a>
 

@@ -1,30 +1,14 @@
 <%- include('partials/header'); %>
-<header>
-        <div class="header_background flex">
-            <div class="logo flex">
-                
-            </div>
-        </div>
-    </header>
-<main class="article_box">
-    <div class="background">
-        <div class="main_page">
-            <h1 class="heading">
-               User Log in
-            </h1>
-            <form action="/users/login" method="POST">
-                <input type="email" placeholder="Username/Email" name="email">
-                <input type="password" name="password" id="" placeholder="Password">
-                <aside class="section soft">
-                <input class="soft-ui rounded-square logBtn" type="submit" value="LOGIN">
-                </aside>
-            </form>
-            <div class="flex">
-                <a class="soft-ui rounded-square logBtn" href="/users/register">Register</a>
-                <a class="soft-ui rounded-square logBtn" href="/auth/github/"><i class="fab fa-github"></i> Login with Github</a>
-            </div>
-    </div>
-</div>
 
+<main>
+    <div class="login">
+        <h1>Login</h1>
+        <form method="POST" action="/users/login">
+            <input type="email" name="email" placeholder="Email" required="required" />
+            <input type="password" name="password" placeholder="Password" required="required" />
+            <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+        </form>
+        <button class="btn btn-primary btn-block btn-large"><a href="/users/register">Register</a></button>
+    </div>
 </main>
 <%- include('partials/footer'); %>

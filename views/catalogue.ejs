@@ -1,30 +1,21 @@
-<%- include('partials/header'); %>
-<%- include('partials/slider'); %>
+<%- include('partials/header'); %> <%- include('partials/slider'); %>
+<%- include('partials/navbar'); %>
 
-<header>
-  <div class="header_background flex">
-    <div class="logo flex">
-      
-    </div>
-  </div>
-</header>
 
-<main class="article_box">
-
-  <div class="profile_section flex">      
+<main class="article_box product_box">
+  <div class="profile_section flex">
     <% product.forEach(a => { %>
-      <article class="product_info">
-        <% console.log(a, "console in ejs catalogue") %>
-        <img class="product" src="/images/uploads/<%= a.image %>" alt="image">
-        <h3><%= a.name %> </h3>
-        <h4><i class="fas fa-rupee-sign"></i> <%= a.price %></h4>
-        <a href="/catalogue/list/<%= a.id %>" ><button> View Product </button> </a>
-      </article>
-     <% }); %> 
+    <article class="product_info">
+      <img class="product" src="/images/uploads/<%= a.image %>" alt="image" />
+      <h3><%= a.name %></h3>
+      <h4><i class="fas fa-rupee-sign"></i> <%= a.price %></h4>
+      <a href="/catalogue/list/<%= a.id %>"><button>View Product</button> </a>
+    </article>
+    <% }); %>
   </div>
-    <% if(user.id && user.email === "saurabhguptaviet@gmail.com" ) { %>
-    <a href="/catalogue/add_product/"> <button> ADD PRODUCT </button> </a>
-    <%}    %>
+  <% if(user.id && user.email === "saurabhguptaviet@gmail.com" ) { %>
+  <a href="/catalogue/add_product/"> <button>ADD PRODUCT</button> </a>
+  <%} %>
 </main>
 
 <%- include('partials/footer'); %>

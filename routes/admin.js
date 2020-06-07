@@ -22,53 +22,6 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage : storage});
 
-// register admin
-
-router.get("/register", (req, res) => {
-  res.render("admin_registration");
-});
-
-// create admin
-router.post("/register", async (req, res, next) => {
-	// console.log(req.body, 'eyxe');
-try {
-	let transporter = nodemailer.createTransport(smtpTransport({
-		service: 'gmail',
-		auth: {
-		  user: process.env.GMAIL_ID,
-		  pass: process.env.GMAIL_PASSCODE,
-		},
-	  }));
-	
-	  var verification = Math.random().toString(36).slice(2);
-	
-	  let mailOptions = {
-		from: process.env.GMAIL_ID,
-		to: req.body.email,
-		subject: "Email verification code for the Shopping Cart :- Created By Saurabh Gupta",
-		test: "First mail via nodemailer",
-		html: `<h1>Dear User,<br>Your One Time Security Code is:</h1> ${verification}. <br> Code is valid for 30 minutes. <br> Please do not reply to this email. `,
-	  };
-	
-	  req.body.verification = verification;
-	
-	  transporter.sendMail(mailOptions, (err, info) => {
-		if (err) return console.log(err);
-		console.log("Message sent: %", info.response);
-	  });
-
-		var admin = await Admin.create(req.body);
-		if (admin) {
-			console.log(admin, "CREATED ADMIN");
-			// res.send("success");
-		  res.status(200).redirect("/admin/login");
-		}
-	} catch (error) {
-		next(error);
-	}
-});
-
-
 // ADMIN LOGIN
 
 router.get('/login', (req, res) => {
@@ -99,6 +52,7 @@ router.post('/login', async (req, res, next) => {
 			//creating a session on the server side
 			req.session.userId = user.id; //this line will create a session on the server side. 5 different users, 5 different sessions, grab the id, make a cookie and send it to the client side.
 			req.session.username = user.name;
+			res.locals.admin = true;
 			res.redirect(`/catalogue/list`);
 	} catch (error) {
 		next(error);
@@ -107,7 +61,7 @@ router.post('/login', async (req, res, next) => {
 });
 
 
-// router.use(auth.checkAdminLogged);
+router.use(auth.checkAdmin);
 
 router.get('/:adminId/adminProfile', async function (req, res, next) {
 	// console.log(req.body, 'koke');
@@ -146,10 +100,9 @@ router.post('/:adminId/editAdmin', upload.single("image"), async function (req, 
 
 // GET ALL USERS IN THE LIST
 
-router.get('/users/', async function(req, res, next) {
+router.get('/users/', auth.checkAdmin, async function(req, res, next) {
 	try {
 		var totalUsers = await User.find({});
-		console.log(totalUsers, "TOTAL USERS IN THE USER =++++_++_+_+_+_+_+_+_+");
 		res.render('users', {totalUsers});
 	} catch (error) {
 		next(error);
@@ -158,18 +111,29 @@ router.get('/users/', async function(req, res, next) {
 });
 
 // BLOCK and UNBLOCK
-router.get('/:userId/block/', async function (req, res, next) {
+router.get('/:id/block/', auth.checkAdmin, async function (req, res, next) {
 	try {
-		var userId = req.params.userId;
-		var blocked = await Users.findByIdAndUpdate(userId, { isBlocked: true }, { new: true });
-		console.log(blocked, "THE BLOCKED USER");
+		var userId = req.params.id;
+		var blocked = await User.findByIdAndUpdate(userId, { isBlocked: true }, { new: true });		
+		console.log("THE USER IS BLOCKED");
+		res.redirect('/admin/users/');
 
 	} catch (error) {
 		next(error);
 	}
 })
 
+router.get('/:id/unblock/', auth.checkAdmin, async function (req, res, next) {
+	try {
+		var userId = req.params.id;
+		var unblocked = await User.findByIdAndUpdate(userId, { isBlocked: false }, { new: true });
+		console.log(unblocked, "THE USER IS UNBLOCKED");
+		res.redirect('/admin/users/');
 
+	} catch (error) {
+		next(error);
+	}
+})
 
 
 

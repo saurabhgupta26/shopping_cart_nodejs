@@ -1,13 +1,8 @@
-<%- include('partials/header'); %>
-<%- include('partials/slider'); %>
+<%- include('partials/header'); %> <%- include('partials/slider'); %> <%-
+include('partials/navbar'); %>
 
-<header>
-  <div class="header_background flex">
-    <div class="logo flex"></div>
-  </div>
-</header>
 <main>
-  <div class="article_box">
+  <div class="article_box product_box">
     <a href="/catalogue/list"
       ><button class="flex1"><i class="fas fa-chevron-circle-left"></i></button>
     </a>
@@ -24,48 +19,88 @@
           <i class="fas fa-rupee-sign"></i><%= product.price %>
         </h1>
         <% if(user.id && user.email === "saurabhguptaviet@gmail.com" ) { %>
-          <a href="/catalogue/<%= product.id %>/editProduct"
-            ><button><i class="fas fa-edit"></i>Edit Product</button>
-          </a>
-          <%} %>
-        </section>
-        <span>
-      <a href="/cart/<%= product.id %>/shoppingBasket/add"
-        ><button><i class="fas fa-shopping-cart"></i> Add to Cart</button>
-      </a>
-    </span>
-      </div>
-      </div>
+        <a href="/catalogue/<%= product.id %>/editProduct"
+          ><button><i class="fas fa-edit"></i>Edit Product</button>
+        </a>
+        <%} %>
+      </section>
+      <span>
+        <a href="/cart/<%= product.id %>/shoppingBasket/add"
+          ><button><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+        </a>
+      </span>
+    </div>
+  </div>
   <section class="review_card">
     <div class="cont">
       <div class="stars">
-        <form action="/catalogue/<%= product.id %>/review/add" method="POST" class="star_rating">
-          <input class="star star-5" id="star-5-2" type="radio" name="rating" value="5"/>
+        <form
+          action="/catalogue/<%= product.id %>/review/add"
+          method="POST"
+          class="star_rating"
+        >
+          <input
+            class="star star-5"
+            id="star-5-2"
+            type="radio"
+            name="rating"
+            value="5"
+          />
           <label class="star star-5" for="star-5-2"></label>
-          <input class="star star-4" id="star-4-2" type="radio" name="rating" value="4"/>
+          <input
+            class="star star-4"
+            id="star-4-2"
+            type="radio"
+            name="rating"
+            value="4"
+          />
           <label class="star star-4" for="star-4-2"></label>
-          <input class="star star-3" id="star-3-2" type="radio" name="rating" value="3"/>
+          <input
+            class="star star-3"
+            id="star-3-2"
+            type="radio"
+            name="rating"
+            value="3"
+          />
           <label class="star star-3" for="star-3-2"></label>
-          <input class="star star-2" id="star-2-2" type="radio" name="rating" value="2"/>
+          <input
+            class="star star-2"
+            id="star-2-2"
+            type="radio"
+            name="rating"
+            value="2"
+          />
           <label class="star star-2" for="star-2-2"></label>
-          <input class="star star-1" id="star-1-2" type="radio" name="rating" value="1"/>
+          <input
+            class="star star-1"
+            id="star-1-2"
+            type="radio"
+            name="rating"
+            value="1"
+          />
           <label class="star star-1" for="star-1-2"></label>
-          <textarea class="review" col="30" name="review" placeholder="Brief Review"></textarea>
           <div class="rev-box">
+            <textarea
+              class="review"
+              col="30"
+              name="review"
+              placeholder="Brief Review"
+            ></textarea>
           </div>
-          <input type="submit" class="review_btn"/>
+          <input type="submit" class="review_btn" />
         </form>
       </div>
     </div>
   </section>
   <section>
     <div class="review_card">
-      <% console.log(product.reviews, "================", product); %>
       <% product.reviews.forEach(a => { %>
-        <% console.log(a, "-=-=-=-=-=-=-=---------========") %>
-        <h4> <%= a.rating %></h4>
-        <p><%= a.review %> </p>
-     <% }); %>
+      <div class="review_box">
+        <h3><%= a.rating %><i class="fas fa-star"></i></h3>
+        <h3><%= user.name %></h3>
+        <p><%= a.review %></p>
+      </div>
+      <% }); %>
     </div>
   </section>
 </main>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="all_users_HTML">
+<html lang="en" class="all_users_HTML open">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,19 +10,13 @@
 </head>
 <body> 
 <%- include('partials/slider'); %>
-
-<header>
-  <div class="header_background flex">
-    <div class="logo flex"></div>
-  </div>
-</header>
-
-<main class="total_users">
-  <% totalUsers.forEach(user => { %>
-
+<%- include('partials/navbar'); %>
+<main class="total_users open">
+  <section class="users_main">
     <h1>
       Users and their profile
     </h1>
+
     <table>
       <thead>
         <tr>
@@ -43,66 +37,73 @@
           </th>
         </tr>
       </tfoot>
-      <tbody>
+      <% totalUsers.forEach(user => { %>
+      <tbody>  
         <tr>
-          <td data-title="Users">
-            <%= user.name %>
-          </td>
-          <td data-title="E-mail">
-            <%= user.email %>
-          </td>
-          <td class="select" data-title="Profile">
-            <a class="button" href="#">
-              Select
-            </a>
-          </td>
-          <td data-title="Block/Unblock">
-            <a class="button" href="#">
-              Block
-            </a>
-            <a class="button" href="#">
-              Unblock
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="detail">
-      <div class="detail-container">
-        <dl>
-          <dt>
-            Name
-          </dt>
-          <dd>
-            <%= user.name %>
-          </dd>
-          <dt>
-            E-mail
-          </dt>
-          <dd>
-            <%= user.email %>
-          </dd>
-          <dt>
-            Username
-          </dt>
-          <dd>
-            <%= user.username %>
-          </dd>
-          <dt>
-            Verified
-          </dt>
-          <dd>
-            <%= user.isVerified %>
-          </dd>
-        </dl>
+            <td data-title="Users">
+              <%= user.name %>
+            </td>
+            <td data-title="E-mail">
+              <%= user.email %>
+            </td>
+            <td class="select" data-title="Profile">
+              <a class="button" href="#">
+                Select
+              </a>
+            </td>
+            <td data-title="Block/Unblock">
+            <%  if(user.isBlocked == false) { %>
+              <a class="button" href="/admin/<%=user._id%>/block/">
+                Block
+              </a>
+            <%} if(user.isBlocked ==true) { %>
+              <a class="button" href="/admin/<%=user._id%>/unblock/">
+                Unblock
+              </a>
+            <%} %>
+            </td>
+          </tr>
+        </tbody>
+        <% }) %>
+      </table>
+      <div class="detail">
+        <div class="detail-container">
+          <% totalUsers.forEach(user => { %>
+          <dl>
+            <dt>
+              Name
+            </dt>
+            <dd>
+              <%= user.name %>
+            </dd>
+            <dt>
+              E-mail
+            </dt>
+            <dd>
+              <%= user.email %>
+            </dd>
+            <dt>
+              Username
+            </dt>
+            <dd>
+              <%= user.username %>
+            </dd>
+            <dt>
+              Verified
+            </dt>
+            <dd>
+              <%= user.isVerified %>
+            </dd>
+          </dl>
+        </div>
+        <div class="detail-nav">
+          <button class="close">
+            Close
+          </button>
+          <% }) %>
+        </div>
       </div>
-      <div class="detail-nav">
-        <button class="close">
-          Close
-        </button>
-      </div>
-    </div>
-  <% }) %>
+  </section>
 </main>
 
 <%- include('partials/footer'); %>

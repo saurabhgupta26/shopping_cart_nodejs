@@ -1,17 +1,5 @@
 console.log('Hello');
-// (document).ready(function(){
-//     // Check Radio-box
-//     (".rating input:radio").attr("checked", false);
-
-//     ('.rating input').click(function () {
-//         $(".rating span").removeClass('checked');
-//         $(this).parent().addClass('checked');
-//     });
-
-//     ('input:radio').change(
-//       function(){
-//         var userRating = this.value;
-//         alert(userRating);
-//     }); 
-// });
-
+$('.button, .close').on('click', function(e) {
+    e.preventDefault();
+    $('.detail, .all_users_HTML, .total_users').toggleClass('open');
+  });

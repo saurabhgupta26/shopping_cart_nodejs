@@ -11,6 +11,7 @@ var multer = require("multer");
 var passport = require("passport");
 const MongoStore = require("connect-mongo")(session);
 var auth = require("./middleware/auth");
+var flash = require('flash');
 
 require("dotenv").config();
 require("./modules/passport");
