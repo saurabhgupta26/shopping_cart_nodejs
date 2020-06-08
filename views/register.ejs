@@ -1,18 +1,17 @@
 <%- include('partials/header'); %>
-<%- include('partials/navbar'); %>
-<main class="article_box">
-  <form action="/users/register" method="POST">
-    <h2 class="Sign Up">Register</h2>
+<main>
+  <div class="login">
+  <h1>Register</h1>
+    <form method="POST" action="/users/register">
+    <input type="text" placeholder="Full Name" name="name" required="required"/>
+    <input type="email" placeholder="Email" name="email" required="required" />
+    <input type="text" placeholder="Username" name="username" required="required"/>
+    <input type="password" name="password" id="" placeholder="Password" required="required"/>
 
-    <input type="text" placeholder="Full Name" name="name" />
-    <input type="email" placeholder="Email" name="email" />
-    <input type="text" placeholder="Username" name="username" />
-    <input type="password" name="password" id="" placeholder="Password" />
-
-    <input class="soft-ui rounded-square update_btn" type="submit" value="Register" />
+    <input class="btn btn-primary btn-block btn-large" type="submit" value="Register" />
 
   </form>
-  <a href="/users/login"> <button class="soft-ui rounded-square update_btn">Login</button></a>
-
+  <a href="/users/login"> <button class="btn btn-primary btn-block btn-large">Login</button></a>
+</div>
 </main>
 <%- include('partials/footer'); %>

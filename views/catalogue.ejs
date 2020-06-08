@@ -2,19 +2,20 @@
 <%- include('partials/navbar'); %>
 
 
-<main class="article_box product_box">
-  <div class="profile_section flex">
-    <% product.forEach(a => { %>
-    <article class="product_info">
-      <img class="product" src="/images/uploads/<%= a.image %>" alt="image" />
-      <h3><%= a.name %></h3>
-      <h4><i class="fas fa-rupee-sign"></i> <%= a.price %></h4>
-      <a href="/catalogue/list/<%= a.id %>"><button>View Product</button> </a>
-    </article>
+<main>
+  <div id="wrap">
+    <div id="columns" class="columns_4">
+      <% product.forEach(a => { %>
+      <figure>
+      <img src="/images/uploads/<%= a.image %>" alt="image" />
+      <figcaption> <%= a.name %></h3> </figcaption>
+      <span class="price"><i class="fas fa-rupee-sign"></i> <%= a.price %></span>
+      <a class="button" href="/catalogue/list/<%= a.id %>">View Product</a>
+      </figure>
     <% }); %>
   </div>
   <% if(user.id && user.email === "saurabhguptaviet@gmail.com" ) { %>
-  <a href="/catalogue/add_product/"> <button>ADD PRODUCT</button> </a>
+  <a href="/catalogue/add_product/" class="button">ADD PRODUCT</a>
   <%} %>
 </main>
 
