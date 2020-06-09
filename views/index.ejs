@@ -1,20 +1,13 @@
 <%- include('partials/header'); %>
-<%- include('partials/navbar'); %>
 
     <h2>Welcome to Shopping Cart</h2>
     <div class="right_side">
         <button><a href="/users/shoppingBasket/"> Shopping Cart </a></button>
     </div>
-    <% if(user) { %>
-      <h2>Hello, <%= user.name %></h2>
-      <a class="soft-ui rounded-square logBtn" href="/catalogue/list/">Product List</a>
-      <a href="/users/logout">LOGOUT</a>
-
-  <% } else { %>
       <div class="flex">
           <a class="soft-ui rounded-square logBtn" href="/users/register">Register</a>
           <a class="soft-ui rounded-square logBtn" href="users/login"><i class="fas fa-at"></i> Login by Email</a>
       </div>
-  <% }%>
+    </div>
 
   <%- include('partials/footer'); %>

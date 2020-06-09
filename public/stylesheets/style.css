@@ -70,13 +70,14 @@ h1 {
   color: #4b2f07cf;
 }
 .article_box {
-  max-width: 500px;
+  max-width: 700px;
   margin: 0 auto;
   border: 2px solid grey;
   border-radius: 5px;
   box-shadow:  -3px -3px 7px #ffffffb2,
   3px 3px 5px rgba(94, 104, 121,0.3);
   padding: 10px;
+  background: #f1f3f6;
 }
 .product_box {
   max-width: 1200px;

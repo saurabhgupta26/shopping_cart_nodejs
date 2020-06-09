@@ -47,6 +47,16 @@ router.get("/:productId/shoppingBasket/add", auth.loggedUser ,async function (re
     } catch (error) {
       next(error);
     }
+  });
+  router.get('/:cartId/delete', auth.loggedUser, async function(req, res, next) {
+    try {
+      var cartId = req.params.cartId;
+      var cart = await Cart.findById(cartId);
+      console.log(cart, "=================================");
+
+    } catch (error) {
+      next(error);
+    }
   })
 
   
