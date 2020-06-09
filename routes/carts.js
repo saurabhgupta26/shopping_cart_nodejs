@@ -52,8 +52,11 @@ router.get("/:productId/shoppingBasket/add", auth.loggedUser ,async function (re
     try {
       var cartId = req.params.cartId;
       var cart = await Cart.findById(cartId);
-      console.log(cart, "=================================");
-
+      if(cart) {
+        cart = await Cart.findByIdAndDelete(cartId);
+      }
+    console.log(cart, "=================================");
+    res.redirect('/users/shoppingBasket/');
     } catch (error) {
       next(error);
     }
