@@ -14,16 +14,13 @@ router.get("/:productId/shoppingBasket/add", auth.loggedUser ,async function (re
     try {
       var productId = req.params.productId;
       var cart = await Cart.findOne({userId: req.user, product: productId});
-      console.log(cart, "CART provided")
   
       if(cart) {
         cart = await Cart.findByIdAndUpdate(cart.id, {$inc: {quantity: 1}});
       } else {
         var newProduct = {product: productId, userId: req.user, quantity: 1};
         cart = await Cart.create(newProduct);
-        console.log(cart, "CARTS IN THE JS");
         var user = await User.findByIdAndUpdate(req.user, {$push: {cartItems: cart.id}},{new:true});
-        console.log(user, "Product added");
       }
       res.redirect(`/users/shoppingBasket/`);
       
@@ -55,7 +52,6 @@ router.get("/:productId/shoppingBasket/add", auth.loggedUser ,async function (re
       if(cart) {
         cart = await Cart.findByIdAndDelete(cartId);
       }
-    console.log(cart, "=================================");
     res.redirect('/users/shoppingBasket/');
     } catch (error) {
       next(error);

@@ -111,8 +111,6 @@ router.post("/login", async (req, res, next) => {
     req.session.user = user.id; //this line will create a session on the server side. 5 different users, 5 different sessions, grab the id, make a cookie and send it to the client side.
     req.session.username = user.name;
     res.locals.users = false;
-
-    console.log(req.session.username, "USERsss ID IS HERE");
     res.redirect("/catalogue/list");
   } catch (error) {
     next(error);
@@ -122,21 +120,16 @@ router.post("/login", async (req, res, next) => {
 // VERIFICATION OF ID
 router.post("/:user/verify", async (req, res) => {
   try {
-    // console.log(req.params.user, "USERID");
     var user = await User.findById(req.params.user);
-    //  console.log(user, "REached third");
     if (user.verification === req.body.verification) {
-      //  console.log("reached here");
       var updateUser = await User.findByIdAndUpdate(
         req.params.user,
         { isVerified: true },
         { new: true }
       );
-      // console.log(updateUser, "reached Updated User");
       res.redirect(`/catalogue/list`);
     }
     if (!user.verification === req.body.verification) {
-      // console.log(req.body.verification, "BODY verify");
       res.send("not verified");
     }
   } catch (err) {
@@ -158,13 +151,6 @@ router.get("/shoppingBasket/", auth.loggedUser, async function (
     next(error);
   }
 });
-
-// var cartItem = req.user.cartItems;
-//     var cart = await Cart.find({_id :{$in: [cartItem]}}).populate("product");
-//     console.log(cart,"--------------");
-//     // we have to do populate as well here
-//     res.render('shoppingBasket', {cart})
-
 router.get("/logout", (req, res) => {
   delete req.session.adminId; //DELETE THE specific session userId
   req.session.destroy();
